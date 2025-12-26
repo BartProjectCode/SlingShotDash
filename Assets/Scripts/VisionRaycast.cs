@@ -10,16 +10,16 @@ public class VisionRaycast : MonoBehaviour
     public Vector3 stringDir;
     public Transform player;
 
-    void Start()
+    private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         camera1 = Camera.main;
     }
 
-    void Update()
+    private void Update()
     {
         Debug.DrawRay(transform.position, transform.forward * distance, Color.blue);
-        
+
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
@@ -31,7 +31,7 @@ public class VisionRaycast : MonoBehaviour
         {
             crossair.color = Color.white;
         }
-        
+
         Shoot();
     }
 
@@ -39,7 +39,7 @@ public class VisionRaycast : MonoBehaviour
     {
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
-        
+
         if (Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(ray, out hit, distance))
@@ -47,12 +47,12 @@ public class VisionRaycast : MonoBehaviour
                 // Debug.Log(hit.transform.name);
                 // Debug.Log(hit.point);
                 Instantiate(sphere, hit.point, transform.rotation);
-                stringDir = player.position - hit.point;
+                stringDir = hit.point;
                 Debug.Log(stringDir);
+                player.GetComponent<PlayerScript>().DrawLine();
             }
         }
 
         return default;
     }
-    
 }
