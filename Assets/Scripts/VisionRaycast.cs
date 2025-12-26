@@ -7,6 +7,8 @@ public class VisionRaycast : MonoBehaviour
     [SerializeField] private Image crossair;
     [SerializeField] private float distance = 100f;
     public GameObject sphere;
+    public Vector3 stringDir;
+    public Transform player;
 
     void Start()
     {
@@ -29,16 +31,28 @@ public class VisionRaycast : MonoBehaviour
         {
             crossair.color = Color.white;
         }
+        
+        Shoot();
+    }
 
+    public Vector3 Shoot()
+    {
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+        
         if (Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(ray, out hit, distance))
             {
-                Debug.Log(hit.transform.name);
-                Debug.Log(hit.point);
+                // Debug.Log(hit.transform.name);
+                // Debug.Log(hit.point);
                 Instantiate(sphere, hit.point, transform.rotation);
+                stringDir = player.position - hit.point;
+                Debug.Log(stringDir);
             }
         }
-        
+
+        return default;
     }
+    
 }

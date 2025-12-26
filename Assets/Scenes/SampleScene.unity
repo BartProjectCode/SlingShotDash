@@ -811,6 +811,8 @@ MonoBehaviour:
   crossair: {fileID: 1319372929}
   distance: 100
   sphere: {fileID: 387014074}
+  stringDir: {x: 0, y: 0, z: 0}
+  player: {fileID: 705168079}
 --- !u!1 &986108073
 GameObject:
   m_ObjectHideFlags: 0
