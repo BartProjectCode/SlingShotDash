@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,10 +15,20 @@ public class VisionRaycast : MonoBehaviour
     public Vector3 firstShot;
     public Vector3 secondShot;
 
+    public AnimationCurve curve;
+    public float duration = 5f;
+
+    private float timer = 0f;
+    public float force = 0f;
+
+    private CinemachineCamera cineCam;
+    public GameObject cineCamObject;
+
     private PlayerScript playerScript;
 
     private void Start()
     {
+        cineCam = cineCamObject.GetComponent<CinemachineCamera>();
         playerScript = player.GetComponent<PlayerScript>();
         Cursor.lockState = CursorLockMode.Locked;
         camera1 = Camera.main;
@@ -25,6 +36,7 @@ public class VisionRaycast : MonoBehaviour
 
     private void Update()
     {
+        
         Debug.DrawRay(transform.position, transform.forward * distance, Color.blue);
 
         Ray ray = new Ray(transform.position, transform.forward);
@@ -38,6 +50,7 @@ public class VisionRaycast : MonoBehaviour
         {
             crossair.color = Color.white;
         }
+        
 
         Shoot();
     }
@@ -65,10 +78,30 @@ public class VisionRaycast : MonoBehaviour
             // Debug.Log(stringDir);
             player.GetComponent<PlayerScript>().DrawLine();
         }
-        else if (playerScript.state == States.twoShot && Input.GetKeyDown(KeyCode.Space))
+        else if (playerScript.state == States.twoShot && Input.GetKey(KeyCode.Space))
+        {
+            timer += Time.deltaTime;
+            float t = Mathf.Clamp01(timer / duration);
+            force = curve.Evaluate(t) * 100f;
+            cineCam.Lens.FieldOfView =  60 + force/5;
+            Debug.Log(force);
+            
+        }
+        else if (playerScript.state == States.twoShot && Input.GetKeyUp(KeyCode.Space))
         {
             player.GetComponent<PlayerScript>().DrawLine();
+            timer = 0f;
+            force = 0f;
+            cineCam.Lens.FieldOfView = 60;
         }
+        // else
+        // {
+        //     
+        // }
+        // else if (playerScript.state == States.twoShot && Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     player.GetComponent<PlayerScript>().DrawLine();
+        // }
 
         if (Input.GetMouseButtonDown(1) && playerScript.state != States.noShot)
         {

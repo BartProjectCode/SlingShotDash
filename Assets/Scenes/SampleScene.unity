@@ -996,6 +996,51 @@ MonoBehaviour:
   stringDir: {x: 0, y: 0, z: 0}
   firstShot: {x: 0, y: 0, z: 0}
   secondShot: {x: 0, y: 0, z: 0}
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.333333
+      value: 0.3
+      inSlope: 0.014849735
+      outSlope: 0.014849735
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.6249996
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.666666
+      value: 0.6
+      inSlope: -0.0015851768
+      outSlope: -0.0015851768
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 1
+      outWeight: 0.550001
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.005266623
+      outSlope: 0.005266623
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 1
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  duration: 9
+  force: 0
+  cineCamObject: {fileID: 1278018352}
 --- !u!1 &986108073
 GameObject:
   m_ObjectHideFlags: 0

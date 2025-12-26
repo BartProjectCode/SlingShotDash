@@ -52,7 +52,7 @@ public class PlayerScript : MonoBehaviour
             case States.twoShot:
                 midDirection = (vr.firstShot + vr.secondShot) / 2f;
                 dashDirection = (midDirection - transform.position).normalized;
-                pr.Propulsion(dashDirection, force);
+                pr.Propulsion(dashDirection, vr.force / 2f);
                 break;
         }
     }
