@@ -16,10 +16,16 @@ public class PlayerScript : MonoBehaviour
     public States state;
     public Vector3 dir;
     public Camera mainCamera;
+    public Vector3 dashDirection;
+    public VisionRaycast vr;
+    public PropulsionScript pr;
+    public float force;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        vr = mainCamera.GetComponent<VisionRaycast>();
+        pr = GetComponent<PropulsionScript>();
     }
 
     private void Propulsion(Vector3 direction, float force)
@@ -49,6 +55,8 @@ public class PlayerScript : MonoBehaviour
                 break;
 
             case States.twoShot:
+                dashDirection = Vector3.Lerp(vr.firstShot, vr.secondShot, 0.5f);
+                pr.Propulsion(dashDirection, force);
                 break;
         }
     }

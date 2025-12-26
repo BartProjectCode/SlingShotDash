@@ -8,14 +8,13 @@ public class VisionRaycast : MonoBehaviour
     [SerializeField] private float distance = 100f;
     public GameObject sphere;
     public Transform player;
-    
+
     public Vector3 stringDir;
 
     public Vector3 firstShot;
     public Vector3 secondShot;
 
     private PlayerScript playerScript;
-    
 
     private void Start()
     {
@@ -53,7 +52,7 @@ public class VisionRaycast : MonoBehaviour
             Instantiate(sphere, hit.point, transform.rotation);
             stringDir = hit.point;
             firstShot = stringDir;
-            Debug.Log("first shot value = " + firstShot +  " second shot value = " + secondShot);
+            Debug.Log("first shot value = " + firstShot + " second shot value = " + secondShot);
             // Debug.Log(stringDir);
             player.GetComponent<PlayerScript>().DrawLine();
         }
@@ -62,13 +61,29 @@ public class VisionRaycast : MonoBehaviour
             Instantiate(sphere, hit.point, transform.rotation);
             stringDir = hit.point;
             secondShot = stringDir;
-            Debug.Log("first shot value = " + firstShot +  " second shot value = " + secondShot);
+            Debug.Log("first shot value = " + firstShot + " second shot value = " + secondShot);
             // Debug.Log(stringDir);
+            player.GetComponent<PlayerScript>().DrawLine();
+        }
+        else if (playerScript.state == States.twoShot && Input.GetKeyDown(KeyCode.Space))
+        {
             player.GetComponent<PlayerScript>().DrawLine();
         }
 
         if (Input.GetMouseButtonDown(1) && playerScript.state != States.noShot)
         {
+            switch (playerScript.state)
+            {
+                case States.oneShot:
+                    playerScript.lr_one.enabled = false;
+                    firstShot = Vector3.zero;
+                    break;
+
+                case States.twoShot:
+                    playerScript.lr_two.enabled = false;
+                    secondShot = Vector3.zero;
+                    break;
+            }
             playerScript.state -= 1;
         }
 

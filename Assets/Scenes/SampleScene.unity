@@ -456,6 +456,7 @@ GameObject:
   - component: {fileID: 705168079}
   - component: {fileID: 705168078}
   - component: {fileID: 705168082}
+  - component: {fileID: 705168083}
   - component: {fileID: 705168077}
   - component: {fileID: 705168076}
   - component: {fileID: 705168080}
@@ -615,8 +616,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lr_one: {fileID: 1096033250}
   lr_two: {fileID: 381149113}
+  state: 0
   dir: {x: 0, y: 0, z: 0}
   mainCamera: {fileID: 963194227}
+  dashDirection: {x: 0, y: 0, z: 0}
+  vr: {fileID: 963194230}
+  pr: {fileID: 705168083}
+  force: 30
+--- !u!114 &705168083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705168075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9efbdae7ec25ec046b548ad7ac29234c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 705168080}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,8 +988,10 @@ MonoBehaviour:
   crossair: {fileID: 1319372929}
   distance: 100
   sphere: {fileID: 387014074}
-  stringDir: {x: 0, y: 0, z: 0}
   player: {fileID: 705168079}
+  stringDir: {x: 0, y: 0, z: 0}
+  firstShot: {x: 0, y: 0, z: 0}
+  secondShot: {x: 0, y: 0, z: 0}
 --- !u!1 &986108073
 GameObject:
   m_ObjectHideFlags: 0
