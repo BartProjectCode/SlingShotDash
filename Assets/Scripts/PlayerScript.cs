@@ -16,6 +16,7 @@ public class PlayerScript : MonoBehaviour
     public States state;
     public Vector3 dir;
     public Camera mainCamera;
+    public Vector3 midDirection;
     public Vector3 dashDirection;
     public VisionRaycast vr;
     public PropulsionScript pr;
@@ -28,12 +29,6 @@ public class PlayerScript : MonoBehaviour
         pr = GetComponent<PropulsionScript>();
     }
 
-    private void Propulsion(Vector3 direction, float force)
-    {
-        if (direction == Vector3.zero)
-            return;
-    }
-
     public void DrawLine()
     {
         Debug.Log(state);
@@ -43,19 +38,20 @@ public class PlayerScript : MonoBehaviour
             case States.noShot:
                 lr_one.enabled = true;
                 lr_one.SetPosition(0, transform.position);
-                lr_one.SetPosition(1, dir);
+                lr_one.SetPosition(1, vr.firstShot);
                 state = States.oneShot;
                 break;
 
             case States.oneShot:
                 lr_two.enabled = true;
                 lr_two.SetPosition(0, transform.position);
-                lr_two.SetPosition(1, dir);
+                lr_two.SetPosition(1, vr.secondShot);
                 state = States.twoShot;
                 break;
 
             case States.twoShot:
-                dashDirection = Vector3.Lerp(vr.firstShot, vr.secondShot, 0.5f);
+                midDirection = (vr.firstShot + vr.secondShot) / 2f;
+                dashDirection = (midDirection - transform.position).normalized;
                 pr.Propulsion(dashDirection, force);
                 break;
         }

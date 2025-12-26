@@ -596,7 +596,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705168075}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9784b27c82f56d4a8f759235e7bf20b, type: 3}
   m_Name: 
@@ -619,10 +619,11 @@ MonoBehaviour:
   state: 0
   dir: {x: 0, y: 0, z: 0}
   mainCamera: {fileID: 963194227}
+  midDirection: {x: 0, y: 0, z: 0}
   dashDirection: {x: 0, y: 0, z: 0}
   vr: {fileID: 963194230}
   pr: {fileID: 705168083}
-  force: 30
+  force: 20
 --- !u!114 &705168083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,6 +637,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 705168080}
+  vr: {fileID: 963194230}
+  player: {fileID: 705168082}
+  mainCamera: {fileID: 963194227}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
