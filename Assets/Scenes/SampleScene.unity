@@ -373,7 +373,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -475,7 +475,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705168075}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: eb12944de906a764795d764deacf7e7d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -499,8 +499,8 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705168075}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -993,6 +993,8 @@ MonoBehaviour:
   distance: 100
   sphere: {fileID: 387014074}
   player: {fileID: 705168079}
+  allPlayer: {fileID: 705168075}
+  playerRb: {fileID: 705168080}
   stringDir: {x: 0, y: 0, z: 0}
   firstShot: {x: 0, y: 0, z: 0}
   secondShot: {x: 0, y: 0, z: 0}
@@ -1002,45 +1004,47 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 1.681414
+      outSlope: 1.681414
       tangentMode: 0
-      weightedMode: 0
+      weightedMode: 3
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.5908415
     - serializedVersion: 3
       time: 0.333333
       value: 0.3
-      inSlope: 0.014849735
-      outSlope: 0.014849735
+      inSlope: 0.26565853
+      outSlope: 0.26565853
       tangentMode: 0
       weightedMode: 3
-      inWeight: 0.6249996
-      outWeight: 0.33333334
+      inWeight: 0.16145484
+      outWeight: 0.09804441
     - serializedVersion: 3
       time: 0.666666
       value: 0.6
-      inSlope: -0.0015851768
-      outSlope: -0.0015851768
+      inSlope: 0.0030929728
+      outSlope: 0.0030929728
       tangentMode: 0
       weightedMode: 3
-      inWeight: 1
+      inWeight: 0.35346884
       outWeight: 0.550001
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0.005266623
-      outSlope: 0.005266623
+      inSlope: 0.017217133
+      outSlope: 0.017217133
       tangentMode: 0
       weightedMode: 3
-      inWeight: 1
+      inWeight: 0.46881464
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  duration: 9
+  duration: 4
   force: 0
   cineCamObject: {fileID: 1278018352}
+  onGround: 0
+  groundRayDistance: 1.76
 --- !u!1 &986108073
 GameObject:
   m_ObjectHideFlags: 0

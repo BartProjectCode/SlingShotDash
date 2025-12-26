@@ -12,7 +12,7 @@ public class PropulsionScript : MonoBehaviour
         if (direction == Vector3.zero)
             return;
 
-        Debug.Log("test propulsion");
+        // Debug.Log("test propulsion");
         rb.linearVelocity = Vector3.zero;
         rb.AddForce(direction * force, ForceMode.Impulse);
         vr.firstShot = Vector3.zero;
@@ -20,6 +20,7 @@ public class PropulsionScript : MonoBehaviour
         player.lr_one.enabled = false;
         player.lr_two.enabled = false;
         player.state = States.noShot;
+        
     }
 
     private void Start()
@@ -29,8 +30,8 @@ public class PropulsionScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     private void Update()
     {
+        // Debug.Log(rb.linearVelocity.magnitude);
     }
 }

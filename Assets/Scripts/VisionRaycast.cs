@@ -9,6 +9,8 @@ public class VisionRaycast : MonoBehaviour
     [SerializeField] private float distance = 100f;
     public GameObject sphere;
     public Transform player;
+    public GameObject allPlayer;
+    public Rigidbody playerRb;
 
     public Vector3 stringDir;
 
@@ -26,12 +28,19 @@ public class VisionRaycast : MonoBehaviour
 
     private PlayerScript playerScript;
 
+    private float maxFOV;
+
+    public bool onGround;
+    public float groundRayDistance;
+
     private void Start()
     {
+        playerRb = allPlayer.GetComponent<Rigidbody>();
         cineCam = cineCamObject.GetComponent<CinemachineCamera>();
         playerScript = player.GetComponent<PlayerScript>();
         Cursor.lockState = CursorLockMode.Locked;
         camera1 = Camera.main;
+        maxFOV = 60f;
     }
 
     private void Update()
@@ -42,6 +51,7 @@ public class VisionRaycast : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
+        
         if (Physics.Raycast(ray, out hit, distance))
         {
             crossair.color = Color.red;
@@ -50,9 +60,32 @@ public class VisionRaycast : MonoBehaviour
         {
             crossair.color = Color.white;
         }
-        
+
+        if (!onGround)
+        {
+            float fov;
+            fov = Mathf.Clamp((maxFOV + (-25f + playerRb.linearVelocity.magnitude / 2)), 60f, 1000f);
+            cineCam.Lens.FieldOfView = fov;
+        }
 
         Shoot();
+        
+        Debug.DrawRay(transform.position, -Vector3.up * groundRayDistance, Color.magenta);
+        
+        //Check si le joueur est sur le terrain
+        Ray groundRay = new Ray(transform.position, -Vector3.up);
+        RaycastHit groundHit;
+        
+        if (Physics.Raycast(groundRay, out groundHit, groundRayDistance))
+        {
+            onGround = true;
+        }
+        else
+        {
+            onGround = false;
+        }
+
+
     }
 
     public Vector3 Shoot()
@@ -60,7 +93,7 @@ public class VisionRaycast : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
-        if (playerScript.state == States.noShot && Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hit, distance))
+        if (onGround && playerScript.state == States.noShot && Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hit, distance))
         {
             Instantiate(sphere, hit.point, transform.rotation);
             stringDir = hit.point;
@@ -69,7 +102,7 @@ public class VisionRaycast : MonoBehaviour
             // Debug.Log(stringDir);
             player.GetComponent<PlayerScript>().DrawLine();
         }
-        else if (playerScript.state == States.oneShot && Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hit, distance))
+        else if (onGround && playerScript.state == States.oneShot && Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hit, distance))
         {
             Instantiate(sphere, hit.point, transform.rotation);
             stringDir = hit.point;
@@ -83,25 +116,16 @@ public class VisionRaycast : MonoBehaviour
             timer += Time.deltaTime;
             float t = Mathf.Clamp01(timer / duration);
             force = curve.Evaluate(t) * 100f;
-            cineCam.Lens.FieldOfView =  60 + force/5;
-            Debug.Log(force);
-            
+            maxFOV = cineCam.Lens.FieldOfView = 60 + force/5;
+            // Debug.Log(force);
         }
         else if (playerScript.state == States.twoShot && Input.GetKeyUp(KeyCode.Space))
         {
             player.GetComponent<PlayerScript>().DrawLine();
             timer = 0f;
             force = 0f;
-            cineCam.Lens.FieldOfView = 60;
+            // cineCam.Lens.FieldOfView = 60;
         }
-        // else
-        // {
-        //     
-        // }
-        // else if (playerScript.state == States.twoShot && Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     player.GetComponent<PlayerScript>().DrawLine();
-        // }
 
         if (Input.GetMouseButtonDown(1) && playerScript.state != States.noShot)
         {
