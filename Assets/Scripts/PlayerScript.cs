@@ -13,7 +13,7 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody rb;
     public LineRenderer lr_one;
     public LineRenderer lr_two;
-    private States state;
+    public States state;
     public Vector3 dir;
     public Camera mainCamera;
 
