@@ -30,6 +30,7 @@ public class PlayerScript : MonoBehaviour
 
     public void DrawLine()
     {
+        Debug.Log(state);
         dir = mainCamera.GetComponent<VisionRaycast>().stringDir;
         switch (state)
         {
@@ -37,10 +38,14 @@ public class PlayerScript : MonoBehaviour
                 lr_one.enabled = true;
                 lr_one.SetPosition(0, transform.position);
                 lr_one.SetPosition(1, dir);
-
+                state = States.oneShot;
                 break;
 
             case States.oneShot:
+                lr_two.enabled = true;
+                lr_two.SetPosition(0, transform.position);
+                lr_two.SetPosition(1, dir);
+                state = States.twoShot;
                 break;
 
             case States.twoShot:
@@ -51,6 +56,7 @@ public class PlayerScript : MonoBehaviour
     private void Start()
     {
         lr_one.positionCount = 2;
+        lr_two.positionCount = 2;
         state = States.noShot;
     }
 
