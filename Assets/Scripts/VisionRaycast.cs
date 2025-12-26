@@ -34,6 +34,7 @@ public class VisionRaycast : MonoBehaviour
             if (Physics.Raycast(ray, out hit, distance))
             {
                 Debug.Log(hit.transform.name);
+                Debug.Log(hit.transform.position);
             }
         }
         
