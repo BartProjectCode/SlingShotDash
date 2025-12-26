@@ -6,6 +6,7 @@ public class VisionRaycast : MonoBehaviour
     private Camera camera1;
     [SerializeField] private Image crossair;
     [SerializeField] private float distance = 100f;
+    public GameObject sphere;
 
     void Start()
     {
@@ -34,7 +35,8 @@ public class VisionRaycast : MonoBehaviour
             if (Physics.Raycast(ray, out hit, distance))
             {
                 Debug.Log(hit.transform.name);
-                Debug.Log(hit.transform.position);
+                Debug.Log(hit.point);
+                Instantiate(sphere, hit.point, transform.rotation);
             }
         }
         
