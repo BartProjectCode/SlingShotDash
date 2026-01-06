@@ -45,13 +45,11 @@ public class VisionRaycast : MonoBehaviour
 
     private void Update()
     {
-        
         Debug.DrawRay(transform.position, transform.forward * distance, Color.blue);
 
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
-        
         if (Physics.Raycast(ray, out hit, distance))
         {
             crossair.color = Color.red;
@@ -69,13 +67,13 @@ public class VisionRaycast : MonoBehaviour
         }
 
         Shoot();
-        
+
         Debug.DrawRay(transform.position, -Vector3.up * groundRayDistance, Color.magenta);
-        
+
         //Check si le joueur est sur le terrain
         Ray groundRay = new Ray(transform.position, -Vector3.up);
         RaycastHit groundHit;
-        
+
         if (Physics.Raycast(groundRay, out groundHit, groundRayDistance))
         {
             onGround = true;
@@ -84,8 +82,6 @@ public class VisionRaycast : MonoBehaviour
         {
             onGround = false;
         }
-
-
     }
 
     public Vector3 Shoot()
@@ -116,7 +112,7 @@ public class VisionRaycast : MonoBehaviour
             timer += Time.deltaTime;
             float t = Mathf.Clamp01(timer / duration);
             force = curve.Evaluate(t) * 100f;
-            maxFOV = cineCam.Lens.FieldOfView = 60 + force/5;
+            maxFOV = cineCam.Lens.FieldOfView = 60 + force / 5;
             // Debug.Log(force);
         }
         else if (playerScript.state == States.twoShot && Input.GetKeyUp(KeyCode.Space))

@@ -254,7 +254,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a2eaba52ccf89b347b0fc7892a3c01ad, type: 2}
+  - {fileID: 2100000, guid: 43c5001c36794ef4d9179366f555227d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -624,6 +624,10 @@ MonoBehaviour:
   vr: {fileID: 963194230}
   pr: {fileID: 705168083}
   force: 20
+  mat_lr: {fileID: 2100000, guid: 43c5001c36794ef4d9179366f555227d, type: 2}
+  colorMin: {r: 0, g: 1, b: 0, a: 1}
+  colorMid: {r: 0, g: 1, b: 0, a: 1}
+  colorMax: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &705168083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,6 +644,7 @@ MonoBehaviour:
   vr: {fileID: 963194230}
   player: {fileID: 705168082}
   mainCamera: {fileID: 963194227}
+  chargeValue: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

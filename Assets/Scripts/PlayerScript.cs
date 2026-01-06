@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Splines.Interpolators;
 
 public enum States
 {
@@ -21,6 +22,10 @@ public class PlayerScript : MonoBehaviour
     public VisionRaycast vr;
     public PropulsionScript pr;
     public float force;
+    public Material mat_lr;
+    public Color colorMin = Color.green;
+    public Color colorMid = Color.green;
+    public Color colorMax = Color.red;
 
     private void Awake()
     {
@@ -37,14 +42,12 @@ public class PlayerScript : MonoBehaviour
         {
             case States.noShot:
                 lr_one.enabled = true;
-                lr_one.SetPosition(0, transform.position);
                 lr_one.SetPosition(1, vr.firstShot);
                 state = States.oneShot;
                 break;
 
             case States.oneShot:
                 lr_two.enabled = true;
-                lr_two.SetPosition(0, transform.position);
                 lr_two.SetPosition(1, vr.secondShot);
                 state = States.twoShot;
                 break;
@@ -54,6 +57,39 @@ public class PlayerScript : MonoBehaviour
                 dashDirection = (midDirection - transform.position).normalized;
                 pr.Propulsion(dashDirection, vr.force / 2f);
                 break;
+        }
+    }
+
+    private Color GetChargeColor(float charge)
+    {
+        charge = Mathf.Clamp01(charge);
+
+        if (charge <= 0.33f)
+        {
+            float t = charge / 0.33f;
+            return Color.Lerp(Color.green, Color.yellow, t);
+        }
+        else if (charge <= 0.667f)
+        {
+            float t = (charge - 0.33f) / (0.667f - 0.33f);
+            return Color.Lerp(Color.yellow, new Color(1f, 0.5f, 0f), t); // orange
+        }
+        else
+        {
+            float t = (charge - 0.667f) / (1f - 0.667f);
+            return Color.Lerp(new Color(1f, 0.5f, 0f), Color.red, t);
+        }
+    }
+
+    public void UpdateColor(float chargeValue)
+    {
+        if (chargeValue == 0)
+        {
+            mat_lr.color = Color.white;
+        }
+        else
+        {
+            mat_lr.color = GetChargeColor(chargeValue);
         }
     }
 
@@ -67,6 +103,9 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        lr_one.SetPosition(0, transform.position);
+        lr_two.SetPosition(0, transform.position);
+        UpdateColor((vr.force) / 100);
         //lr_one.SetPosition(0, transform.position);
         //lr_one.SetPosition(1, new Vector3(1, 1, 1));
     }

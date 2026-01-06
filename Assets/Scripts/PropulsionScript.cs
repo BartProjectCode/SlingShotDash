@@ -6,6 +6,7 @@ public class PropulsionScript : MonoBehaviour
     public VisionRaycast vr;
     public PlayerScript player;
     public Camera mainCamera;
+    public float chargeValue;
 
     public void Propulsion(Vector3 direction, float force)
     {
@@ -20,7 +21,6 @@ public class PropulsionScript : MonoBehaviour
         player.lr_one.enabled = false;
         player.lr_two.enabled = false;
         player.state = States.noShot;
-        
     }
 
     private void Start()
