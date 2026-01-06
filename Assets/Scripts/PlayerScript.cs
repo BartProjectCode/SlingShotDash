@@ -27,6 +27,10 @@ public class PlayerScript : MonoBehaviour
     public Color colorMid = Color.green;
     public Color colorMax = Color.red;
 
+    public bool multiplyGrav;
+
+    public float dashStrength;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -55,7 +59,7 @@ public class PlayerScript : MonoBehaviour
             case States.twoShot:
                 midDirection = (vr.firstShot + vr.secondShot) / 2f;
                 dashDirection = (midDirection - transform.position).normalized;
-                pr.Propulsion(dashDirection, vr.force / 2f);
+                pr.Propulsion(dashDirection, vr.force * dashStrength);
                 break;
         }
     }
@@ -108,5 +112,18 @@ public class PlayerScript : MonoBehaviour
         UpdateColor((vr.force) / 100);
         //lr_one.SetPosition(0, transform.position);
         //lr_one.SetPosition(1, new Vector3(1, 1, 1));
+
+        if (!vr.onGround && rb.linearVelocity.y < 10 && multiplyGrav)
+        {
+            multiplyGrav = false;
+            Physics.gravity = new Vector3(0f, -100f, 0f);
+            
+        }
+        else if (vr.onGround)
+        {
+            multiplyGrav = true;
+            Physics.gravity = new Vector3(0f, -29.43f, 0f);
+
+        }
     }
 }

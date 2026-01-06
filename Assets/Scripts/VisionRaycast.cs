@@ -33,6 +33,10 @@ public class VisionRaycast : MonoBehaviour
     public bool onGround;
     public float groundRayDistance;
 
+    //variable pour le timer du FOV à l'atterissage au sol
+    private float t = 0;
+    
+
     private void Start()
     {
         playerRb = allPlayer.GetComponent<Rigidbody>();
@@ -82,6 +86,26 @@ public class VisionRaycast : MonoBehaviour
         {
             onGround = false;
         }
+
+        if (onGround && force == 0 && playerRb.linearVelocity.y == 0)
+        {
+
+            t += Time.deltaTime/2;
+            
+            if (t > 1f)
+            {
+                t = 1f;
+            }
+
+            Mathf.Lerp(cineCam.Lens.FieldOfView, 60f, t);
+            Debug.Log(t);
+            // cineCam.Lens.FieldOfView = 60f;
+        }
+        else
+        {
+            t = 0;
+        }
+        
     }
 
     public Vector3 Shoot()
