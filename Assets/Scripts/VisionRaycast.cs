@@ -38,6 +38,9 @@ public class VisionRaycast : MonoBehaviour
     public GameObject secondSphere;
     
     public ParticleSystem windEffect;
+    public ParticleSystem impactEffect;
+
+    private bool playImpact;
     
 
     //variable pour le timer du FOV à l'atterissage au sol
@@ -97,7 +100,7 @@ public class VisionRaycast : MonoBehaviour
             onGround = false;
         }
 
-        if (onGround && force == 0 && playerRb.linearVelocity.y < 0.5f)
+        if (onGround && force == 0 && playerRb.linearVelocity.magnitude < 0.5f)
         {
             t += Time.deltaTime * 4;
 
@@ -116,6 +119,16 @@ public class VisionRaycast : MonoBehaviour
         }
         
         WindEffect();
+
+        if (onGround && playImpact && playerRb.linearVelocity.y > -0.5f && playerRb.linearVelocity.y <= 0)
+        {
+            playImpact = false;
+            impactEffect.Play();
+        }
+        else if (!onGround && playerRb.linearVelocity.y < -25f)
+        {
+            playImpact = true;
+        }
         
     }
 
