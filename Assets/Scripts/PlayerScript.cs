@@ -103,6 +103,8 @@ public class PlayerScript : MonoBehaviour
 
     private void Start()
     {
+        lr_one.enabled = false;
+        lr_two.enabled = false;
         lr_one.positionCount = 2;
         lr_two.positionCount = 2;
         lr_one.startWidth = startWidth;
