@@ -104,7 +104,7 @@ public class VisionRaycast : MonoBehaviour
             }
 
             float fovTarget = Mathf.Lerp(90, 70f, t);
-            Debug.Log(t);
+            // Debug.Log(t);
             cineCam.Lens.FieldOfView = fovTarget;
         }
         else

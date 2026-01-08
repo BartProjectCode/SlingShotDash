@@ -11,9 +11,12 @@ public class PCameraShakeController : MonoBehaviour
     public GameObject visionCameraObject;
     public VisionRaycast vr;
     public float strength;
+    public GameObject player;
+    private Rigidbody playerRb;
 
     private void Start()
     {
+        playerRb = player.GetComponent<Rigidbody>();
         vr = visionCameraObject.GetComponent<VisionRaycast>();
     }
 
@@ -30,10 +33,16 @@ public class PCameraShakeController : MonoBehaviour
         }
         else
         {
-
             strength = 0;
             transform.position = startEyePosition.position;
         }
+
+        if (vr.onGround == false)
+        {
+            transform.position = startEyePosition.position + UnityEngine.Random.insideUnitSphere * ( playerRb.linearVelocity.magnitude / 2000);
+        }
+
+
     }
 
 }
