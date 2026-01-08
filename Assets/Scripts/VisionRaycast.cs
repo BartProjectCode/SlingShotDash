@@ -34,6 +34,9 @@ public class VisionRaycast : MonoBehaviour
     public bool onGround;
     public float groundRayDistance;
 
+    public GameObject firstSphere;
+    public GameObject secondSphere;
+
     //variable pour le timer du FOV à l'atterissage au sol
     private float t = 0;
 
@@ -117,7 +120,8 @@ public class VisionRaycast : MonoBehaviour
 
         if (onGround && playerScript.state == States.noShot && Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hit, distance))
         {
-            Instantiate(sphere, hit.point, transform.rotation);
+            GameObject firstRealSphere = Instantiate(sphere, hit.point, transform.rotation);
+            firstSphere = firstRealSphere;
             stringDir = hit.point;
             firstShot = stringDir;
             Debug.Log("first shot value = " + firstShot + " second shot value = " + secondShot);
@@ -126,7 +130,8 @@ public class VisionRaycast : MonoBehaviour
         }
         else if (onGround && playerScript.state == States.oneShot && Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hit, distance))
         {
-            Instantiate(sphere, hit.point, transform.rotation);
+            GameObject secondRealSphere = Instantiate(sphere, hit.point, transform.rotation);
+            secondSphere = secondRealSphere;
             stringDir = hit.point;
             secondShot = stringDir;
             Debug.Log("first shot value = " + firstShot + " second shot value = " + secondShot);
@@ -183,6 +188,7 @@ public class VisionRaycast : MonoBehaviour
         firstShot = Vector3.zero;
         playerScript.lr_one.startWidth = playerScript.startWidth;
         playerScript.lr_one.endWidth = playerScript.startWidth;
+        Destroy(firstSphere);
     }
 
     public void ResetLineTwo()
@@ -191,5 +197,6 @@ public class VisionRaycast : MonoBehaviour
         secondShot = Vector3.zero;
         playerScript.lr_two.startWidth = playerScript.startWidth;
         playerScript.lr_two.endWidth = playerScript.startWidth;
+        Destroy(secondSphere);
     }
 }
