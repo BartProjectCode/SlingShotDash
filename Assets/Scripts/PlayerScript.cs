@@ -31,6 +31,7 @@ public class PlayerScript : MonoBehaviour
     public Color colorMid = Color.green;
     public Color colorMax = Color.red;
 
+
     public bool multiplyGrav;
 
     public float dashStrength;
@@ -115,8 +116,8 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        lr_one.SetPosition(0, armOne.position);
-        lr_two.SetPosition(0, armTwo.position);
+        lr_one.SetPosition(0, transform.position);
+        lr_two.SetPosition(0, transform.position);
         UpdateColor((vr.force) / 100);
         //lr_one.SetPosition(0, transform.position);
         //lr_one.SetPosition(1, new Vector3(1, 1, 1));

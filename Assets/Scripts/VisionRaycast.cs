@@ -36,6 +36,9 @@ public class VisionRaycast : MonoBehaviour
 
     public GameObject firstSphere;
     public GameObject secondSphere;
+    
+    public ParticleSystem windEffect;
+    
 
     //variable pour le timer du FOV à l'atterissage au sol
     private float t = 0;
@@ -111,6 +114,9 @@ public class VisionRaycast : MonoBehaviour
         {
             t = 0;
         }
+        
+        WindEffect();
+        
     }
 
     public Vector3 Shoot()
@@ -198,5 +204,17 @@ public class VisionRaycast : MonoBehaviour
         playerScript.lr_two.startWidth = playerScript.startWidth;
         playerScript.lr_two.endWidth = playerScript.startWidth;
         Destroy(secondSphere);
+    }
+
+    public void WindEffect()
+    {
+        if (onGround)
+        {
+            windEffect.gameObject.SetActive(false);
+        }
+        else if (!onGround)
+        {
+            windEffect.gameObject.SetActive(true);
+        }
     }
 }
