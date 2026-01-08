@@ -139,6 +139,10 @@ public class VisionRaycast : MonoBehaviour
             float t = Mathf.Clamp01(timer / duration);
             force = curve.Evaluate(t) * 100f;
             maxFOV = cineCam.Lens.FieldOfView = 70 + force / 5;
+            playerScript.lr_one.startWidth = playerScript.startWidth - (force / playerScript.widthFactor);
+            //playerScript.lr_one.endWidth = playerScript.startWidth - (force / playerScript.widthFactor);
+            playerScript.lr_two.startWidth = playerScript.startWidth - (force / playerScript.widthFactor);
+            //playerScript.lr_two.endWidth = playerScript.startWidth - (force / playerScript.widthFactor);
             if (timer > duration + snapTimer)
             {
                 ResetLineOne();
@@ -155,7 +159,7 @@ public class VisionRaycast : MonoBehaviour
             // cineCam.Lens.FieldOfView = 60;
         }
 
-        if (Input.GetMouseButtonDown(1) && playerScript.state != States.noShot)
+        if (Input.GetMouseButtonDown(1) && playerScript.state != States.noShot && force <= 0)
         {
             switch (playerScript.state)
             {
@@ -177,11 +181,15 @@ public class VisionRaycast : MonoBehaviour
     {
         playerScript.lr_one.enabled = false;
         firstShot = Vector3.zero;
+        playerScript.lr_one.startWidth = playerScript.startWidth;
+        playerScript.lr_one.endWidth = playerScript.startWidth;
     }
 
     public void ResetLineTwo()
     {
         playerScript.lr_two.enabled = false;
         secondShot = Vector3.zero;
+        playerScript.lr_two.startWidth = playerScript.startWidth;
+        playerScript.lr_two.endWidth = playerScript.startWidth;
     }
 }

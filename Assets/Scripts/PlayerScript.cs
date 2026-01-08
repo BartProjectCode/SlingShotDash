@@ -14,6 +14,8 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody rb;
     public LineRenderer lr_one;
     public LineRenderer lr_two;
+    public float startWidth = 0.25f;
+    public float widthFactor = 10f;
     public States state;
     public Vector3 dir;
     public Camera mainCamera;
@@ -101,6 +103,8 @@ public class PlayerScript : MonoBehaviour
     {
         lr_one.positionCount = 2;
         lr_two.positionCount = 2;
+        lr_one.startWidth = startWidth;
+        lr_two.startWidth = startWidth;
         state = States.noShot;
     }
 
