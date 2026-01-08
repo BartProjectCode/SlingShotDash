@@ -32,7 +32,7 @@ public class VisionRaycast : MonoBehaviour
 
     public bool onGround;
     public float groundRayDistance;
-
+    
     //variable pour le timer du FOV à l'atterissage au sol
     private float t = 0;
     
@@ -63,12 +63,16 @@ public class VisionRaycast : MonoBehaviour
             crossair.color = Color.white;
         }
 
-        if (!onGround)
-        {
-            float fov;
-            fov = Mathf.Clamp((maxFOV + (-25f + playerRb.linearVelocity.magnitude / 2)), 60f, 1000f);
-            cineCam.Lens.FieldOfView = fov;
-        }
+        // if (!onGround)
+        // {
+        //     float fov;
+        //     float maxFov;
+        //     // fov = Mathf.Clamp((maxFOV + (-25f + playerRb.linearVelocity.magnitude / 2)), 60f, 1000f);
+        //     maxFov = cineCam.Lens.FieldOfView;
+        //     fov = Mathf.Lerp(100, 60f, 3);
+        //     
+        //     cineCam.Lens.FieldOfView = fov;
+        // }
 
         Shoot();
 
@@ -87,19 +91,19 @@ public class VisionRaycast : MonoBehaviour
             onGround = false;
         }
 
-        if (onGround && force == 0 && playerRb.linearVelocity.y == 0)
+        if (onGround && force == 0 && playerRb.linearVelocity.y < 0.5f)
         {
-
-            t += Time.deltaTime/2;
+        
+            t += Time.deltaTime * 4;
             
             if (t > 1f)
             {
                 t = 1f;
             }
-
-            Mathf.Lerp(cineCam.Lens.FieldOfView, 60f, t);
+        
+            float fovTarget = Mathf.Lerp(90, 70f, t);
             Debug.Log(t);
-            // cineCam.Lens.FieldOfView = 60f;
+            cineCam.Lens.FieldOfView = fovTarget;
         }
         else
         {
@@ -136,7 +140,7 @@ public class VisionRaycast : MonoBehaviour
             timer += Time.deltaTime;
             float t = Mathf.Clamp01(timer / duration);
             force = curve.Evaluate(t) * 100f;
-            maxFOV = cineCam.Lens.FieldOfView = 60 + force / 5;
+            maxFOV = cineCam.Lens.FieldOfView = 70 + force / 5;
             // Debug.Log(force);
         }
         else if (playerScript.state == States.twoShot && Input.GetKeyUp(KeyCode.Space))

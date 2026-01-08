@@ -116,7 +116,7 @@ public class PlayerScript : MonoBehaviour
         if (!vr.onGround && rb.linearVelocity.y < 10 && multiplyGrav)
         {
             multiplyGrav = false;
-            Physics.gravity = new Vector3(0f, -100f, 0f);
+            Physics.gravity = new Vector3(0f, -60f, 0f);
             
         }
         else if (vr.onGround)
