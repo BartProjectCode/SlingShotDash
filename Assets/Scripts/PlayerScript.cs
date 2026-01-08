@@ -14,6 +14,8 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody rb;
     public LineRenderer lr_one;
     public LineRenderer lr_two;
+    public Transform armOne;
+    public Transform armTwo;
     public float startWidth = 0.25f;
     public float widthFactor = 10f;
     public States state;
@@ -111,8 +113,8 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        lr_one.SetPosition(0, transform.position);
-        lr_two.SetPosition(0, transform.position);
+        lr_one.SetPosition(0, armOne.position);
+        lr_two.SetPosition(0, armTwo.position);
         UpdateColor((vr.force) / 100);
         //lr_one.SetPosition(0, transform.position);
         //lr_one.SetPosition(1, new Vector3(1, 1, 1));

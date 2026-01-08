@@ -558,6 +558,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lr_one: {fileID: 1096033250}
   lr_two: {fileID: 381149113}
+  armOne: {fileID: 1986058730}
+  armTwo: {fileID: 1799722485}
   startWidth: 0.3
   widthFactor: 500
   state: 0
