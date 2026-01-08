@@ -1047,7 +1047,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  duration: 4
+  duration: 3
+  snapTimer: 2
   force: 0
   cineCamObject: {fileID: 1278018352}
   onGround: 0

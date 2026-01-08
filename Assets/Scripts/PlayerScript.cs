@@ -117,13 +117,11 @@ public class PlayerScript : MonoBehaviour
         {
             multiplyGrav = false;
             Physics.gravity = new Vector3(0f, -60f, 0f);
-            
         }
         else if (vr.onGround)
         {
             multiplyGrav = true;
             Physics.gravity = new Vector3(0f, -29.43f, 0f);
-
         }
     }
 }

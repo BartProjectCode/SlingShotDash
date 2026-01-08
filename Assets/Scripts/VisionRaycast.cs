@@ -19,6 +19,7 @@ public class VisionRaycast : MonoBehaviour
 
     public AnimationCurve curve;
     public float duration = 5f;
+    public float snapTimer = 2f;
 
     private float timer = 0f;
     public float force = 0f;
@@ -32,10 +33,9 @@ public class VisionRaycast : MonoBehaviour
 
     public bool onGround;
     public float groundRayDistance;
-    
+
     //variable pour le timer du FOV à l'atterissage au sol
     private float t = 0;
-    
 
     private void Start()
     {
@@ -70,7 +70,7 @@ public class VisionRaycast : MonoBehaviour
         //     // fov = Mathf.Clamp((maxFOV + (-25f + playerRb.linearVelocity.magnitude / 2)), 60f, 1000f);
         //     maxFov = cineCam.Lens.FieldOfView;
         //     fov = Mathf.Lerp(100, 60f, 3);
-        //     
+        //
         //     cineCam.Lens.FieldOfView = fov;
         // }
 
@@ -93,14 +93,13 @@ public class VisionRaycast : MonoBehaviour
 
         if (onGround && force == 0 && playerRb.linearVelocity.y < 0.5f)
         {
-        
             t += Time.deltaTime * 4;
-            
+
             if (t > 1f)
             {
                 t = 1f;
             }
-        
+
             float fovTarget = Mathf.Lerp(90, 70f, t);
             Debug.Log(t);
             cineCam.Lens.FieldOfView = fovTarget;
@@ -109,7 +108,6 @@ public class VisionRaycast : MonoBehaviour
         {
             t = 0;
         }
-        
     }
 
     public Vector3 Shoot()
@@ -141,6 +139,12 @@ public class VisionRaycast : MonoBehaviour
             float t = Mathf.Clamp01(timer / duration);
             force = curve.Evaluate(t) * 100f;
             maxFOV = cineCam.Lens.FieldOfView = 70 + force / 5;
+            if (timer > duration + snapTimer)
+            {
+                ResetLineOne();
+                ResetLineTwo();
+                force = 0;
+            }
             // Debug.Log(force);
         }
         else if (playerScript.state == States.twoShot && Input.GetKeyUp(KeyCode.Space))
@@ -156,18 +160,28 @@ public class VisionRaycast : MonoBehaviour
             switch (playerScript.state)
             {
                 case States.oneShot:
-                    playerScript.lr_one.enabled = false;
-                    firstShot = Vector3.zero;
+                    ResetLineOne();
                     break;
 
                 case States.twoShot:
-                    playerScript.lr_two.enabled = false;
-                    secondShot = Vector3.zero;
+                    ResetLineTwo();
                     break;
             }
             playerScript.state -= 1;
         }
 
         return default;
+    }
+
+    public void ResetLineOne()
+    {
+        playerScript.lr_one.enabled = false;
+        firstShot = Vector3.zero;
+    }
+
+    public void ResetLineTwo()
+    {
+        playerScript.lr_two.enabled = false;
+        secondShot = Vector3.zero;
     }
 }

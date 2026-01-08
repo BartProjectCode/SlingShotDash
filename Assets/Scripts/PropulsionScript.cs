@@ -16,10 +16,8 @@ public class PropulsionScript : MonoBehaviour
         // Debug.Log("test propulsion");
         rb.linearVelocity = Vector3.zero;
         rb.AddForce(direction * force, ForceMode.Impulse);
-        vr.firstShot = Vector3.zero;
-        vr.secondShot = Vector3.zero;
-        player.lr_one.enabled = false;
-        player.lr_two.enabled = false;
+        vr.ResetLineOne();
+        vr.ResetLineTwo();
         player.state = States.noShot;
     }
 
