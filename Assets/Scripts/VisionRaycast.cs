@@ -36,12 +36,13 @@ public class VisionRaycast : MonoBehaviour
 
     public GameObject firstSphere;
     public GameObject secondSphere;
-    
+
     public ParticleSystem windEffect;
     public ParticleSystem impactEffect;
 
     private bool playImpact;
-    
+
+    public AudioSource chargeSound;
 
     //variable pour le timer du FOV à l'atterissage au sol
     private float t = 0;
@@ -117,10 +118,9 @@ public class VisionRaycast : MonoBehaviour
         {
             t = 0;
         }
-        
+
         WindEffect();
         GroundImpactEffect();
-        
     }
 
     public Vector3 Shoot()
@@ -168,10 +168,16 @@ public class VisionRaycast : MonoBehaviour
         }
         else if (playerScript.state == States.twoShot && Input.GetKeyUp(KeyCode.Space))
         {
+            chargeSound.Stop();
             player.GetComponent<PlayerScript>().DrawLine();
             timer = 0f;
             force = 0f;
             // cineCam.Lens.FieldOfView = 60;
+        }
+
+        if (playerScript.state == States.twoShot && Input.GetKeyDown(KeyCode.Space))
+        {
+            chargeSound.Play();
         }
 
         if (Input.GetMouseButtonDown(1) && playerScript.state != States.noShot && force <= 0)
@@ -234,5 +240,4 @@ public class VisionRaycast : MonoBehaviour
             playImpact = true;
         }
     }
-    
 }
