@@ -243,7 +243,7 @@ public class VisionRaycast : MonoBehaviour
 
     public void GroundImpactEffect()
     {
-        if (onGround && playImpact)
+        if (onGround && playImpact && playerRb.linearVelocity.y > -0.5f && playerRb.linearVelocity.y < 0.5f)
         {
             playImpact = false;
             Debug.Log("Debug !!! = " + playerRb.linearVelocity);
