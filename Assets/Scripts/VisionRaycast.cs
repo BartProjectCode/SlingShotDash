@@ -91,20 +91,20 @@ public class VisionRaycast : MonoBehaviour
 
         Shoot();
 
-        Debug.DrawRay(transform.position, -Vector3.up * groundRayDistance, Color.magenta);
-
-        //Check si le joueur est sur le terrain
-        Ray groundRay = new Ray(transform.position, -Vector3.up);
-        RaycastHit groundHit;
-
-        if (Physics.Raycast(groundRay, out groundHit, groundRayDistance) && !groundHit.collider.gameObject.CompareTag("Player"))
-        {
-            onGround = true;
-        }
-        else
-        {
-            onGround = false;
-        }
+        // Debug.DrawRay(transform.position, -Vector3.up * groundRayDistance, Color.magenta);
+        //
+        // //Check si le joueur est sur le terrain
+        // Ray groundRay = new Ray(transform.position, -Vector3.up);
+        // RaycastHit groundHit;
+        //
+        // if (Physics.Raycast(groundRay, out groundHit, groundRayDistance) && !groundHit.collider.gameObject.CompareTag("Player"))
+        // {
+        //     onGround = true;
+        // }
+        // else
+        // {
+        //     onGround = false;
+        // }
 
         if (onGround && force == 0 && playerRb.linearVelocity.magnitude < 0.5f)
         {
