@@ -119,16 +119,7 @@ public class VisionRaycast : MonoBehaviour
         }
         
         WindEffect();
-
-        if (onGround && playImpact && playerRb.linearVelocity.y > -0.5f && playerRb.linearVelocity.y <= 0)
-        {
-            playImpact = false;
-            impactEffect.Play();
-        }
-        else if (!onGround && playerRb.linearVelocity.y < -25f)
-        {
-            playImpact = true;
-        }
+        GroundImpactEffect();
         
     }
 
@@ -230,4 +221,18 @@ public class VisionRaycast : MonoBehaviour
             windEffect.gameObject.SetActive(true);
         }
     }
+
+    public void GroundImpactEffect()
+    {
+        if (onGround && playImpact && playerRb.linearVelocity.y > -0.5f && playerRb.linearVelocity.y <= 0)
+        {
+            playImpact = false;
+            impactEffect.Play();
+        }
+        else if (!onGround && playerRb.linearVelocity.y < -30f)
+        {
+            playImpact = true;
+        }
+    }
+    
 }
