@@ -46,7 +46,9 @@ public class VisionRaycast : MonoBehaviour
 
     public AudioSource chargeSound;
     public AudioSource collisionSound;
+    public AudioSource groundingSound;
     public AudioSource webSound;
+    public AudioSource cancelSound;
 
     //variable pour le timer du FOV à l'atterissage au sol
     private float t = 0;
@@ -198,10 +200,12 @@ public class VisionRaycast : MonoBehaviour
             switch (playerScript.state)
             {
                 case States.oneShot:
+                    cancelSound.Play();
                     ResetLineOne();
                     break;
 
                 case States.twoShot:
+                    cancelSound.Play();
                     ResetLineTwo();
                     break;
             }
@@ -247,6 +251,8 @@ public class VisionRaycast : MonoBehaviour
         {
             playImpact = false;
             Debug.Log("Debug !!! = " + playerRb.linearVelocity);
+            groundingSound.volume = playerScript.velocity / 90;
+            groundingSound.Play();
             impactEffect.Play();
         }
         else if (!onGround && playerRb.linearVelocity.y < -5f)
@@ -267,7 +273,7 @@ public class VisionRaycast : MonoBehaviour
             Debug.Log(relativeSpeed + " OK");
             wallImpact = false;
             //joue le son
-            collisionSound.volume = relativeSpeed;
+            collisionSound.volume = relativeSpeed / 90;
             collisionSound.Play();
         }
     }
