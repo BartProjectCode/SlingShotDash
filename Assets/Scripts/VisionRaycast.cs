@@ -95,7 +95,7 @@ public class VisionRaycast : MonoBehaviour
         Ray groundRay = new Ray(transform.position, -Vector3.up);
         RaycastHit groundHit;
 
-        if (Physics.Raycast(groundRay, out groundHit, groundRayDistance))
+        if (Physics.Raycast(groundRay, out groundHit, groundRayDistance) && !groundHit.collider.gameObject.CompareTag("Player"))
         {
             onGround = true;
         }
@@ -238,12 +238,13 @@ public class VisionRaycast : MonoBehaviour
 
     public void GroundImpactEffect()
     {
-        if (onGround && playImpact && playerRb.linearVelocity.y > -0.5f && playerRb.linearVelocity.y <= 0)
+        if (onGround && playImpact)
         {
             playImpact = false;
+            Debug.Log("Debug !!! = " + playerRb.linearVelocity);
             impactEffect.Play();
         }
-        else if (!onGround && playerRb.linearVelocity.y < -30f)
+        else if (!onGround && playerRb.linearVelocity.y < -5f)
         {
             playImpact = true;
         }

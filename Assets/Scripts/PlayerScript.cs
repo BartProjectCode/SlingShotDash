@@ -36,6 +36,8 @@ public class PlayerScript : MonoBehaviour
 
     public float dashStrength;
 
+    public float velocity;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -136,7 +138,7 @@ public class PlayerScript : MonoBehaviour
     
     private void OnCollisionEnter(Collision other)
     {
-        float velocity = other.relativeVelocity.magnitude;
+        velocity = other.relativeVelocity.magnitude;
         Debug.Log("linear velocity on impact = " + velocity);
         vr.WallImpactEffect(velocity);
     }
