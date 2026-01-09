@@ -118,11 +118,11 @@ public class PlayerScript : MonoBehaviour
     private void Update()
     {
         Debug.DrawRay(transform.position, -Vector3.up * vr.groundRayDistance, Color.magenta);
-        
+
         //Check si le joueur est sur le terrain
         Ray groundRay = new Ray(transform.position, -Vector3.up);
         RaycastHit groundHit;
-        
+
         if (Physics.Raycast(groundRay, out groundHit, vr.groundRayDistance) && !groundHit.collider.gameObject.CompareTag("Player"))
         {
             vr.onGround = true;
@@ -131,8 +131,7 @@ public class PlayerScript : MonoBehaviour
         {
             vr.onGround = false;
         }
-        
-        
+
         lr_one.SetPosition(0, transform.position);
         lr_two.SetPosition(0, transform.position);
         UpdateColor((vr.force) / 100);

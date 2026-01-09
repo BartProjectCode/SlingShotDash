@@ -46,6 +46,7 @@ public class VisionRaycast : MonoBehaviour
 
     public AudioSource chargeSound;
     public AudioSource collisionSound;
+    public AudioSource webSound;
 
     //variable pour le timer du FOV à l'atterissage au sol
     private float t = 0;
@@ -147,6 +148,7 @@ public class VisionRaycast : MonoBehaviour
             // Debug.Log("first shot value = " + firstShot + " second shot value = " + secondShot);
             // Debug.Log(stringDir);
             player.GetComponent<PlayerScript>().DrawLine();
+            webSound.Play();
         }
         else if (onGround && playerScript.state == States.oneShot && Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hit, distance))
         {
@@ -157,6 +159,7 @@ public class VisionRaycast : MonoBehaviour
             // Debug.Log("first shot value = " + firstShot + " second shot value = " + secondShot);
             // Debug.Log(stringDir);
             player.GetComponent<PlayerScript>().DrawLine();
+            webSound.Play();
         }
         else if (playerScript.state == States.twoShot && Input.GetKey(KeyCode.Space))
         {
