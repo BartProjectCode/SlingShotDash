@@ -1,4 +1,6 @@
+using System;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -46,6 +48,7 @@ public class VisionRaycast : MonoBehaviour
 
     //variable pour le timer du FOV à l'atterissage au sol
     private float t = 0;
+    public bool wallImpact;
 
     private void Start()
     {
@@ -121,6 +124,11 @@ public class VisionRaycast : MonoBehaviour
 
         WindEffect();
         GroundImpactEffect();
+        
+        if (onGround)
+        {
+            wallImpact = true;
+        }
     }
 
     public Vector3 Shoot()
@@ -134,7 +142,7 @@ public class VisionRaycast : MonoBehaviour
             firstSphere = firstRealSphere;
             stringDir = hit.point;
             firstShot = stringDir;
-            Debug.Log("first shot value = " + firstShot + " second shot value = " + secondShot);
+            // Debug.Log("first shot value = " + firstShot + " second shot value = " + secondShot);
             // Debug.Log(stringDir);
             player.GetComponent<PlayerScript>().DrawLine();
         }
@@ -144,7 +152,7 @@ public class VisionRaycast : MonoBehaviour
             secondSphere = secondRealSphere;
             stringDir = hit.point;
             secondShot = stringDir;
-            Debug.Log("first shot value = " + firstShot + " second shot value = " + secondShot);
+            // Debug.Log("first shot value = " + firstShot + " second shot value = " + secondShot);
             // Debug.Log(stringDir);
             player.GetComponent<PlayerScript>().DrawLine();
         }
@@ -240,4 +248,22 @@ public class VisionRaycast : MonoBehaviour
             playImpact = true;
         }
     }
+
+    public void WallImpactEffect(float relativeSpeed)
+    {
+        Debug.Log("Bon");
+        
+        if (!onGround && wallImpact == true && relativeSpeed > 20f)
+        {
+            // Debug.Log("Impact");
+            // impactEffect.Play();
+            //joue l'effet
+            Debug.Log(relativeSpeed + " OK");
+            wallImpact = false;
+            //joue le son
+
+        }
+        
+    }
+    
 }

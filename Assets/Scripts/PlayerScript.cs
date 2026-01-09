@@ -45,8 +45,8 @@ public class PlayerScript : MonoBehaviour
 
     public void DrawLine()
     {
-        Debug.Log(state);
-        dir = mainCamera.GetComponent<VisionRaycast>().stringDir;
+        // Debug.Log(state);
+        dir = vr.stringDir;
         switch (state)
         {
             case States.noShot:
@@ -133,4 +133,12 @@ public class PlayerScript : MonoBehaviour
             Physics.gravity = new Vector3(0f, -29.43f, 0f);
         }
     }
+    
+    private void OnCollisionEnter(Collision other)
+    {
+        float velocity = other.relativeVelocity.magnitude;
+        Debug.Log("linear velocity on impact = " + velocity);
+        vr.WallImpactEffect(velocity);
+    }
+    
 }
