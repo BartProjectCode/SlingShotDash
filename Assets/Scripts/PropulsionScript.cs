@@ -7,6 +7,7 @@ public class PropulsionScript : MonoBehaviour
     public PlayerScript player;
     public Camera mainCamera;
     public float chargeValue;
+    public AudioSource propulsionSound;
 
     public void Propulsion(Vector3 direction, float force)
     {
@@ -15,10 +16,13 @@ public class PropulsionScript : MonoBehaviour
 
         // Debug.Log("test propulsion");
         rb.linearVelocity = Vector3.zero;
+        propulsionSound.volume = force;
         rb.AddForce(direction * force, ForceMode.Impulse);
         vr.ResetLineOne();
         vr.ResetLineTwo();
         player.state = States.noShot;
+        if (force > 15)
+            propulsionSound.Play();
     }
 
     private void Start()

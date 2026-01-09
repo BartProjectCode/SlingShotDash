@@ -45,9 +45,11 @@ public class VisionRaycast : MonoBehaviour
     private bool playImpact;
 
     public AudioSource chargeSound;
+    public AudioSource collisionSound;
 
     //variable pour le timer du FOV à l'atterissage au sol
     private float t = 0;
+
     public bool wallImpact;
 
     private void Start()
@@ -124,7 +126,7 @@ public class VisionRaycast : MonoBehaviour
 
         WindEffect();
         GroundImpactEffect();
-        
+
         if (onGround)
         {
             wallImpact = true;
@@ -253,7 +255,7 @@ public class VisionRaycast : MonoBehaviour
     public void WallImpactEffect(float relativeSpeed)
     {
         Debug.Log("Bon");
-        
+
         if (!onGround && wallImpact == true && relativeSpeed > 20f)
         {
             // Debug.Log("Impact");
@@ -262,9 +264,8 @@ public class VisionRaycast : MonoBehaviour
             Debug.Log(relativeSpeed + " OK");
             wallImpact = false;
             //joue le son
-
+            collisionSound.volume = relativeSpeed;
+            collisionSound.Play();
         }
-        
     }
-    
 }

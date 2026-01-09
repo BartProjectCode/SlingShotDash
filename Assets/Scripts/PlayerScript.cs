@@ -31,7 +31,6 @@ public class PlayerScript : MonoBehaviour
     public Color colorMid = Color.green;
     public Color colorMax = Color.red;
 
-
     public bool multiplyGrav;
 
     public float dashStrength;
@@ -135,12 +134,11 @@ public class PlayerScript : MonoBehaviour
             Physics.gravity = new Vector3(0f, -29.43f, 0f);
         }
     }
-    
+
     private void OnCollisionEnter(Collision other)
     {
         velocity = other.relativeVelocity.magnitude;
         Debug.Log("linear velocity on impact = " + velocity);
         vr.WallImpactEffect(velocity);
     }
-    
 }
